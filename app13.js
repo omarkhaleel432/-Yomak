@@ -18,14 +18,14 @@ function line(s){const a=[];
   return a.join(" · ")}
 function card(){const s=summary();if(!cfg().on)return"";
   setTimeout(()=>{try{lvEnsure(!1)}catch(e){}},200);
-  return '<div class="card" style="background:linear-gradient(135deg,#155b50,#123c3a);color:#fff"><div class="hello2">☀️ ملخص يومك</div><div style="margin:8px 0;font-size:14px;line-height:1.9">'+
+  return '<div id="mcard" class="card" style="background:linear-gradient(135deg,#155b50,#123c3a);color:#fff"><div class="hello2">☀️ ملخص يومك</div><div style="margin:8px 0;font-size:14px;line-height:1.9">'+
    '<div>🕌 الصلاة القادمة: <b>'+esc(s.pr||"-")+'</b></div>'+
    '<div>✅ مهام النهاردة: <b>'+an(s.done)+'/'+an(s.tasks.length)+'</b>'+(s.ev.length?' · 📅 مواعيد: <b>'+an(s.ev.length)+'</b>':"")+(s.hb?' · 🔥 عادات: <b>'+s.hb+'</b>':"")+'</div>'+
    '<div>'+(line(s)?esc(line(s)):"🌤️ جاري تحميل الطقس والأسعار…")+'</div></div>'+
    (s.tasks.filter(t=>!t.done[s.k]).slice(0,3).map(t=>'<div style="font-size:13px;opacity:.9">▫️ '+esc(t.title)+(t.time?" · "+fmtTime(t.time):"")+'</div>').join(""))+
    '<button class="secondary" style="margin-top:8px;background:#ffffff22;color:#fff" onclick="openPage(\'settings\')">⚙️ إعدادات التنبيه الصباحي</button></div>'}
-const _dh=window.dayHome;
-if(typeof _dh==="function")window.dayHome=function(){return card()+_dh.apply(this,arguments)};
+const _fh=window.feedHome;
+if(typeof _fh==="function")window.feedHome=function(){const h=_fh.apply(this,arguments);return (cs()||d.name)?card()+h:h};
 /* in-app morning reminder (fires once a day when the app is open after the chosen time) */
 if(typeof alertSources!=="undefined")alertSources.push((e,k,m)=>{const c=cfg();if(!c.on||m<c.min||m>c.min+300)return[];
   const s=summary();const t=["مهام: "+s.done+"/"+s.tasks.length,s.pr?"الصلاة القادمة "+s.pr:"",line(s)].filter(Boolean).join(" · ");
@@ -56,5 +56,11 @@ if(typeof PAGES!=="undefined"&&PAGES.settings){const _r=PAGES.settings.render;
      '<p class="muted" style="margin-top:10px">إشعارات الموبايل (تصلك حتى والتطبيق مقفول، وفيها رسائلك الخاصة):</p>'+
      (c.push?'<button class="secondary" onclick="ykPushOff()">إيقاف إشعارات الموبايل</button>':'<button class="primary" onclick="ykPushOn()">🔔 تفعيل إشعارات الموبايل</button>')+
      '<p class="muted" style="font-size:11px">على الآيفون: لازم تضيف التطبيق للشاشة الرئيسية من متصفح Safari الأول.</p></div>'}}
+/* hourly refresh of weather, rates and gold while the app is open; the shown numbers update when they change */
+try{LV_TTL.weather=36e5;LV_TTL.rates=36e5;LV_TTL.gold=36e5}catch(e){}
+const _rd=window.lvRedraw;
+if(typeof _rd==="function")window.lvRedraw=function(){_rd.apply(this,arguments);const c=document.getElementById("mcard");if(c&&cfg().on){const t=document.createElement("div");t.innerHTML=card();if(t.firstChild)c.outerHTML=t.firstChild.outerHTML}};
+const tick=()=>{if(document.hidden||!d.name)return;try{lvEnsure(!1)}catch(e){}};
+setInterval(tick,5*60*1000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)tick()});
 setTimeout(ykPushSync,4000);
 })();

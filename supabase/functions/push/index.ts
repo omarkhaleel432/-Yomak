@@ -3,7 +3,7 @@
 import webpush from "npm:web-push@3.6.7";
 const url = Deno.env.get("SUPABASE_URL")!, svc = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
 const H = { apikey: svc, Authorization: "Bearer " + svc, "Content-Type": "application/json" };
-webpush.setVapidDetails("mailto:omar.khalil.mkt@gmail.com", Deno.env.get("VAPID_PUBLIC") || "", Deno.env.get("VAPID_PRIVATE") || "");
+webpush.setVapidDetails("https://github.com/omarkhaleel432/-Yomak", Deno.env.get("VAPID_PUBLIC") || "", Deno.env.get("VAPID_PRIVATE") || "");
 const ok = (b: unknown, s = 200) => new Response(JSON.stringify(b), { status: s, headers: { "Content-Type": "application/json" } });
 async function j(u: string) { try { const r = await fetch(u); return r.ok ? await r.json() : null; } catch { return null; } }
 async function send(sub: any, payload: unknown) {
