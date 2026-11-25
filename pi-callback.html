@@ -1,0 +1,6 @@
+<!doctype html><meta charset="utf-8"><title>Pi</title><p style="font-family:system-ui;text-align:center;margin-top:30vh">جاري الدخول…</p>
+<script>
+(function(){var p=new URLSearchParams(location.hash.replace(/^#/,""));var ok=p.get("state")&&p.get("state")===sessionStorage.getItem("pi_oauth_state");sessionStorage.removeItem("pi_oauth_state");
+if(ok&&p.get("access_token"))sessionStorage.setItem("pi_tok",p.get("access_token"));
+history.replaceState(null,"",location.pathname);location.replace("./");})();
+</script>
