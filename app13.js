@@ -1,6 +1,6 @@
 /* YOMAK v15: morning summary + daily reminder + phone push (push needs sql/2026-11-25-push.sql + functions/push + VAPID key) */
 (function(){
-const YK_VAPID="";  // public VAPID key, filled in when push is switched on
+const YK_VAPID="BFVG0TX3LLZsda1SMuPMNDPoPEA0aJANv_piCIv87qWLa3MbplR3ZdropZ9QOWgDuC8xkd7S9zbEcPCJgiaWqbU";  // public VAPID key, filled in when push is switched on
 const LS="yomak_morning";
 const cfg=()=>{try{const c=JSON.parse(localStorage.getItem(LS));return{on:!(c&&c.on===false),min:Number.isFinite(c&&c.min)?c.min:450,push:!!(c&&c.push)}}catch(e){return{on:true,min:450,push:false}}};
 const setCfg=o=>{try{localStorage.setItem(LS,JSON.stringify({...cfg(),...o}))}catch(e){}};

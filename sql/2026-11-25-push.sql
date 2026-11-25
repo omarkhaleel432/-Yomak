@@ -1,5 +1,5 @@
 -- YOMAK push notifications (morning summary + new private message).
--- Before running: replace __PUSH_SECRET__ with the random secret that is also stored as the PUSH_SECRET function secret.
+-- Before running: replace __PUSH_SECRET__ (applied with the real secret, not stored in git).
 -- New: push_subscriptions, push_config, notify_dm() + one AFTER INSERT trigger on dm_messages (existing table, no data or policy changed), cron job.
 create extension if not exists pg_net with schema extensions;
 create extension if not exists pg_cron with schema extensions;
