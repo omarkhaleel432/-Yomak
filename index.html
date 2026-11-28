@@ -1,5 +1,7 @@
 <!doctype html><html lang="ar" dir="rtl"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>يومك انتقل</title>
 <body style="font-family:sans-serif;text-align:center;padding:40px 20px;background:#f6faf9;color:#123c3a"><h2>يومك اتنقل لعنوانه الجديد</h2><p>جاري التحويل… لو ما حصلش اضغط:</p><p><a href="https://yomak-app.github.io/">yomak-app.github.io</a></p>
-<script>(async()=>{try{if(navigator.serviceWorker){const r=await navigator.serviceWorker.getRegistrations();await Promise.all(r.map(x=>x.unregister()))}}catch(e){}
+<script>(async()=>{var h="";try{var o={};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i),v=localStorage.getItem(k);if(v&&v.length<300000)o[k]=v}
+if(Object.keys(o).length)h="#ykmv="+btoa(encodeURIComponent(JSON.stringify(o))).replace(/\+/g,"-").replace(/\//g,"_")}catch(e){}
+try{if(navigator.serviceWorker){const r=await navigator.serviceWorker.getRegistrations();await Promise.all(r.map(x=>x.unregister()))}}catch(e){}
 try{if(window.caches){const k=await caches.keys();await Promise.all(k.map(x=>caches.delete(x)))}}catch(e){}
-location.replace("https://yomak-app.github.io/")})()</script></body></html>
+location.replace("https://yomak-app.github.io/"+h)})()</script></body></html>
